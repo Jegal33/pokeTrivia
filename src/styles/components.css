@@ -113,9 +113,11 @@
     text-align: center;
     text-transform: capitalize;
     width: 100%;
-    word-break: break-word;
+    word-break: break-all;
+    hyphens: auto;
+    overflow: hidden;
     line-height: 1.4;
-    min-height: 26px;
+    height: 26px;
     /* Space for exactly 2 lines */
     display: flex;
     align-items: center;

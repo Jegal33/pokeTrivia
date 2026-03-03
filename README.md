@@ -24,6 +24,7 @@ pokelearn/
     ├── main.js                 # Entry point, routing, init
     ├── router.js               # Hash-based SPA router
     ├── audio.js                # Audio manager (cries, SFX)
+    ├── i18n.js                 # Language
     ├── data/
     │   ├── api.js              # PokeAPI fetcher + IndexedDB cache
     │   ├── db.js               # IndexedDB wrapper

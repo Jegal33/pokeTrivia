@@ -41,7 +41,7 @@ const config = {
         question: t('game5Question').replace(/este Pokémon|this Pokémon/gi, basePoke.name.toUpperCase()),
         answerId: correctPoke.id,
         html: `
-          <div class="pokemon-display">
+          <div class="pokemon-display zoom-in-sprite">
             <img class="sprite-anim-idle" src="${basePoke.sprite}" alt="Pokemon Base">
           </div>
           <div class="options-grid">

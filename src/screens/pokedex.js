@@ -148,7 +148,7 @@ export default {
             card.innerHTML = `
             <img src="${pokemon.sprite}" alt="${pokemon.name}">
             <div class="name">#${pokemon.id.toString().padStart(3, '0')}</div>
-            <div class="name" style="margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; box-sizing: border-box; text-align: center;">${pokemon.name}</div>
+            <div class="name" style="margin-top: 4px;">${pokemon.name}</div>
         `;
             card.addEventListener('click', () => {
                 playSound('correct'); // select sound

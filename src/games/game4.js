@@ -14,7 +14,7 @@ const config = {
         question: t('game4Question'),
         answerId: correctPoke.id,
         html: `
-          <div class="pokemon-display">
+          <div class="pokemon-display zoom-in-sprite">
             <img class="sprite-anim-idle silhouette" id="silhouette-img" src="${correctPoke.sprite}" alt="Pokemon">
           </div>
           <div class="options-grid">
