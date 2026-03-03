@@ -16,6 +16,9 @@ query GetMinimalPokemonData {
     pokemon_v2_pokemonspecy {
       evolution_chain_id
       generation_id
+      pokemon_v2_pokemonspeciesflavortexts(where: {language_id: {_eq: 7}}, limit: 1) {
+        flavor_text
+      }
     }
   }
 }
@@ -47,10 +50,16 @@ export async function loadData(onProgress) {
 
     const formattedList = rawList.map(p => {
       const spec = p.pokemon_v2_pokemonspecy || {};
+      const flavorTexts = spec.pokemon_v2_pokemonspeciesflavortexts || [];
+      let desc = flavorTexts.length > 0 ? flavorTexts[0].flavor_text : 'Sin descripción disponible.';
+      // Clean up invisible control characters from PokeAPI descriptions
+      desc = desc.replace(/[\n\f\r]/g, ' ');
+
       return {
         id: p.id,
         name: p.name,
         evoChainId: spec.evolution_chain_id || null,
+        description: desc,
         types: p.pokemon_v2_pokemontypes.map(pt => pt.pokemon_v2_type.name),
         sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.id}.png`,
         cry: `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${p.id}.ogg`

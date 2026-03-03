@@ -47,7 +47,10 @@ export function saveResult(pokemonId, isCorrect) {
     localStorage.setItem(STATS_KEY, JSON.stringify(stats));
 }
 
-export function clearAllData() {
+import { clearPokedex } from './db.js';
+
+export async function clearAllData() {
     localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem(STATS_KEY);
+    await clearPokedex();
 }

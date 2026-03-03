@@ -73,7 +73,7 @@ export default {
         const clearBtn = container.querySelector('#clear-data-btn');
         const confirmMsg = container.querySelector('#confirm-msg');
         let confirmClear = false;
-        clearBtn.addEventListener('click', () => {
+        clearBtn.addEventListener('click', async () => {
             if (!confirmClear) {
                 playSound('incorrect'); // Use buzzer to warn
                 confirmMsg.classList.remove('hidden');
@@ -87,7 +87,7 @@ export default {
                     clearBtn.textContent = "Borrar Datos Guardados";
                 }, 3000);
             } else {
-                clearAllData();
+                await clearAllData();
                 window.location.reload(); // Reload to reset state fully
             }
         });

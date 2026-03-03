@@ -62,6 +62,13 @@ export function showPokemonDetail(pokemon, fullList, parentContainer) {
             </div>
         </div>
 
+        <div style="margin-top: 16px; border-top: 2px solid var(--gba-border-inner); padding-top: 8px;">
+            <p style="font-size: 10px; text-transform: uppercase;">Descripción</p>
+            <div style="background: var(--color-bg-light); padding: 8px; border-radius: 4px; border: 2px solid var(--gba-border-inner); margin-top: 4px; font-family: var(--font-gba); font-size: 16px; line-height: 1.4; text-align: left;">
+                ${pokemon.description || 'Sin descripción disponible.'}
+            </div>
+        </div>
+
         ${evolutionsHtml}
       </div>
     `;

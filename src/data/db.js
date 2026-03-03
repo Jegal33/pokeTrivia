@@ -49,3 +49,8 @@ export async function countPokemon() {
     const db = await getDb();
     return await db.count(STORE_POKEMON);
 }
+
+export async function clearPokedex() {
+    const db = await getDb();
+    await db.clear(STORE_POKEMON);
+}
