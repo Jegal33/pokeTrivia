@@ -1,14 +1,6 @@
 import { createGameModule } from '../screens/game.js';
 import { getRandomPokemon } from '../data/api.js';
-
-// Define translated types for UI if needed, but we can just show english for now to match default
-const typeTranslations = {
-    normal: 'Normal', fighting: 'Lucha', flying: 'Volador', poison: 'Veneno',
-    ground: 'Tierra', rock: 'Roca', bug: 'Bicho', ghost: 'Fantasma',
-    steel: 'Acero', fire: 'Fuego', water: 'Agua', grass: 'Planta',
-    electric: 'Eléctrico', psychic: 'Psíquico', ice: 'Hielo', dragon: 'Dragón',
-    dark: 'Siniestro', fairy: 'Hada'
-};
+import { t } from '../i18n.js';
 
 const config = {
     async generateRounds(count) {
@@ -39,7 +31,7 @@ const config = {
             const correctPoke = options[correctIdx];
 
             rounds.push({
-                question: `¿De qué tipo es este Pokémon?`,
+                question: t('game3Question'),
                 answerId: correctPoke.id,
                 html: `
           <div class="pokemon-display">
@@ -48,7 +40,7 @@ const config = {
           <div class="options-grid">
             ${options.map((p, idx) => {
                     const primaryType = p.types[0];
-                    const translated = typeTranslations[primaryType] || primaryType;
+                    const translated = t(primaryType) || primaryType;
                     return `
               <button class="option-btn" data-correct="${idx === correctIdx}">
                 ${translated}

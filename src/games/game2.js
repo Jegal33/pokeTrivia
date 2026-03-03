@@ -1,18 +1,19 @@
 import { createGameModule } from '../screens/game.js';
 import { getRandomPokemon } from '../data/api.js';
+import { t } from '../i18n.js';
 
 const config = {
-    async generateRounds(count) {
-        const rounds = [];
-        for (let i = 0; i < count; i++) {
-            const options = await getRandomPokemon(4);
-            const correctIdx = Math.floor(Math.random() * 4);
-            const correctPoke = options[correctIdx];
+  async generateRounds(count) {
+    const rounds = [];
+    for (let i = 0; i < count; i++) {
+      const options = await getRandomPokemon(4);
+      const correctIdx = Math.floor(Math.random() * 4);
+      const correctPoke = options[correctIdx];
 
-            rounds.push({
-                question: `¿Cuál es el nombre de este Pokémon?`,
-                answerId: correctPoke.id,
-                html: `
+      rounds.push({
+        question: t('game2Question'),
+        answerId: correctPoke.id,
+        html: `
           <div class="pokemon-display">
             <img class="sprite-anim-idle" src="${correctPoke.sprite}" alt="Pokemon">
           </div>
@@ -24,10 +25,10 @@ const config = {
             `).join('')}
           </div>
         `
-            });
-        }
-        return rounds;
+      });
     }
+    return rounds;
+  }
 };
 
 export default createGameModule(config);

@@ -1,5 +1,6 @@
 import { playSound, playCry } from '../audio.js';
 import { getStats, getSettings } from '../data/storage.js';
+import { t } from '../i18n.js';
 
 export function showPokemonDetail(pokemon, fullList, parentContainer) {
     const modalOverlay = document.createElement('div');
@@ -25,7 +26,7 @@ export function showPokemonDetail(pokemon, fullList, parentContainer) {
         if (evos.length > 1) {
             evolutionsHtml = `
               <div style="margin-top: 16px; border-top: 2px solid var(--gba-border-inner); padding-top: 8px;">
-                <p style="font-size: 10px; text-transform: uppercase;">Cadena Evolutiva</p>
+                <p style="font-size: 10px; text-transform: uppercase;">${t('evoChain')}</p>
                 <div style="display: flex; gap: 8px; overflow-x: auto; padding: 4px 0;">
                   ${evos.map(e => `
                     <div style="min-width: 48px; min-height: 48px; border: 2px solid ${e.id === pokemon.id ? 'var(--color-emerald-base)' : 'var(--gba-border-outer)'}; border-radius: 4px; padding: 2px; text-align: center;">
@@ -55,17 +56,17 @@ export function showPokemonDetail(pokemon, fullList, parentContainer) {
         </div>
 
         <div style="margin-top: 16px;">
-            <p style="font-size: 10px; text-transform: uppercase;">Estadísticas (Minijuegos)</p>
+            <p style="font-size: 10px; text-transform: uppercase;">${t('statsMini')}</p>
             <div style="display: flex; justify-content: space-between; background: var(--color-bg-light); padding: 8px; border-radius: 4px; border: 2px solid var(--gba-border-inner); margin-top: 4px;">
-                <div style="color: var(--color-correct); font-family: var(--font-pixel); font-size: 12px;">Aciertos: ${stats.correct}</div>
-                <div style="color: var(--color-incorrect); font-family: var(--font-pixel); font-size: 12px;">Fallos: ${stats.incorrect}</div>
+                <div style="color: var(--color-correct); font-family: var(--font-pixel); font-size: 12px;">${t('hits')}: ${stats.correct}</div>
+                <div style="color: var(--color-incorrect); font-family: var(--font-pixel); font-size: 12px;">${t('misses')}: ${stats.incorrect}</div>
             </div>
         </div>
 
         <div style="margin-top: 16px; border-top: 2px solid var(--gba-border-inner); padding-top: 8px;">
-            <p style="font-size: 10px; text-transform: uppercase;">Descripción</p>
+            <p style="font-size: 10px; text-transform: uppercase;">${t('descTitle')}</p>
             <div style="background: var(--color-bg-light); padding: 8px; border-radius: 4px; border: 2px solid var(--gba-border-inner); margin-top: 4px; font-family: var(--font-gba); font-size: 16px; line-height: 1.4; text-align: left;">
-                ${pokemon.description || 'Sin descripción disponible.'}
+                ${pokemon.description || t('noDesc')}
             </div>
         </div>
 

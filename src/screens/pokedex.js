@@ -3,6 +3,7 @@ import { getAllPokemon } from '../data/api.js';
 import { playSound } from '../audio.js';
 import { showPokemonDetail } from './pokemon-detail.js';
 import { getSettings, saveSettings } from '../data/storage.js';
+import { t } from '../i18n.js';
 
 let fullList = [];
 let filteredList = [];
@@ -20,46 +21,46 @@ export default {
 
         container.innerHTML = `
       <div style="padding: 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 4px solid var(--gba-border-outer); background: var(--color-emerald-dark); color: white;">
-        <h2 style="margin: 0; font-size: 1.2rem;">Pokédex</h2>
+        <h2 style="margin: 0; font-size: 1.2rem;">${t('pokedex')}</h2>
         <div style="display: flex; gap: 8px;">
             <button class="btn btn-secondary" id="toggle-mute" style="padding: 4px 8px; font-size: 10px;">🔊</button>
-            <button class="btn btn-secondary" id="exit-pokedex" style="padding: 4px 8px; font-size: 10px;">Volver</button>
+            <button class="btn btn-secondary" id="exit-pokedex" style="padding: 4px 8px; font-size: 10px;">${t('back')}</button>
         </div>
       </div>
 
       <div style="padding: 8px 16px; display: flex; gap: 8px; background: var(--color-bg-modal); border-bottom: 4px solid var(--gba-border-outer);">
         <select id="filter-type" class="btn btn-secondary" style="flex: 1; padding: 4px; font-size: 10px;">
-          <option value="">Todos los tipos</option>
-          <option value="normal">Normal</option>
-          <option value="fighting">Lucha</option>
-          <option value="flying">Volador</option>
-          <option value="poison">Veneno</option>
-          <option value="ground">Tierra</option>
-          <option value="rock">Roca</option>
-          <option value="bug">Bicho</option>
-          <option value="ghost">Fantasma</option>
-          <option value="steel">Acero</option>
-          <option value="fire">Fuego</option>
-          <option value="water">Agua</option>
-          <option value="grass">Planta</option>
-          <option value="electric">Eléctrico</option>
-          <option value="psychic">Psíquico</option>
-          <option value="ice">Hielo</option>
-          <option value="dragon">Dragón</option>
-          <option value="dark">Siniestro</option>
-          <option value="fairy">Hada</option>
+          <option value="">${t('allTypes')}</option>
+          <option value="normal">${t('normal')}</option>
+          <option value="fighting">${t('fighting')}</option>
+          <option value="flying">${t('flying')}</option>
+          <option value="poison">${t('poison')}</option>
+          <option value="ground">${t('ground')}</option>
+          <option value="rock">${t('rock')}</option>
+          <option value="bug">${t('bug')}</option>
+          <option value="ghost">${t('ghost')}</option>
+          <option value="steel">${t('steel')}</option>
+          <option value="fire">${t('fire')}</option>
+          <option value="water">${t('water')}</option>
+          <option value="grass">${t('grass')}</option>
+          <option value="electric">${t('electric')}</option>
+          <option value="psychic">${t('psychic')}</option>
+          <option value="ice">${t('ice')}</option>
+          <option value="dragon">${t('dragon')}</option>
+          <option value="dark">${t('dark')}</option>
+          <option value="fairy">${t('fairy')}</option>
         </select>
         <select id="filter-gen" class="btn btn-secondary" style="flex: 1; padding: 4px; font-size: 10px;">
-            <option value="">Todas las Gens.</option>
-            <option value="1">Generación 1</option>
-            <option value="2">Generación 2</option>
-            <option value="3">Generación 3</option>
-            <option value="4">Generación 4</option>
-            <option value="5">Generación 5</option>
-            <option value="6">Generación 6</option>
-            <option value="7">Generación 7</option>
-            <option value="8">Generación 8</option>
-            <option value="9">Generación 9</option>
+            <option value="">${t('allGens')}</option>
+            <option value="1">${t('gen1')}</option>
+            <option value="2">${t('gen2')}</option>
+            <option value="3">${t('gen3')}</option>
+            <option value="4">${t('gen4')}</option>
+            <option value="5">${t('gen5')}</option>
+            <option value="6">${t('gen6')}</option>
+            <option value="7">${t('gen7')}</option>
+            <option value="8">${t('gen8')}</option>
+            <option value="9">${t('gen9')}</option>
         </select>
       </div>
       
@@ -68,9 +69,9 @@ export default {
       </div>
       
       <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; border-top: 4px solid var(--gba-border-outer); background: var(--color-bg-modal);">
-          <button class="btn btn-secondary" id="prev-page" style="padding: 8px 16px; font-size: 12px;">◄ Ant.</button>
-          <span id="page-indicator" style="font-family: var(--font-pixel); font-size: 10px;">Página 1</span>
-          <button class="btn btn-secondary" id="next-page" style="padding: 8px 16px; font-size: 12px;">Sig. ►</button>
+          <button class="btn btn-secondary" id="prev-page" style="padding: 8px 16px; font-size: 12px;">${t('prevPage')}</button>
+          <span id="page-indicator" style="font-family: var(--font-pixel); font-size: 10px;">${t('page')} 1</span>
+          <button class="btn btn-secondary" id="next-page" style="padding: 8px 16px; font-size: 12px;">${t('nextPage')}</button>
       </div>
     `;
 
@@ -147,7 +148,7 @@ export default {
             card.innerHTML = `
             <img src="${pokemon.sprite}" alt="${pokemon.name}">
             <div class="name">#${pokemon.id.toString().padStart(3, '0')}</div>
-            <div class="name" style="margin-top: 4px;">${pokemon.name}</div>
+            <div class="name" style="margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; box-sizing: border-box; text-align: center;">${pokemon.name}</div>
         `;
             card.addEventListener('click', () => {
                 playSound('correct'); // select sound
@@ -168,7 +169,7 @@ export default {
             }
             grid.appendChild(fragment);
 
-            pageIndicator.textContent = `Página ${currentPage} / ${totalPages}`;
+            pageIndicator.textContent = `${t('page')} ${currentPage} / ${totalPages}`;
 
             prevBtn.disabled = currentPage === 1;
             prevBtn.style.opacity = currentPage === 1 ? '0.5' : '1';

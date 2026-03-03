@@ -1,6 +1,7 @@
 import { navigate } from '../router.js';
 import { playSound, playCry } from '../audio.js';
 import { saveResult } from '../data/storage.js';
+import { t } from '../i18n.js';
 
 // Game Engine Factory
 export function createGameModule(gameConfig) {
@@ -19,14 +20,14 @@ export function createGameModule(gameConfig) {
             // 1. Setup UI
             container.innerHTML = `
         <div class="game-header">
-          <button class="btn btn-secondary" id="exit-btn" style="padding: 8px; font-size: 10px;">← Salir</button>
+          <button class="btn btn-secondary" id="exit-btn" style="padding: 8px; font-size: 10px;">← ${t('back')}</button>
           <div class="score-board">
-            <span class="score-correct">V: <span id="val-correct">0</span></span>
-            <span class="score-incorrect">X: <span id="val-incorrect">0</span></span>
+            <span class="score-correct">${t('score')}: <span id="val-correct">0</span></span>
+            <span class="score-incorrect">${t('errors')}: <span id="val-incorrect">0</span></span>
           </div>
         </div>
         
-        <h2 id="question-text" style="text-align: center; font-size: 16px;">Cargando...</h2>
+        <h2 id="question-text" style="text-align: center; font-size: 16px;">${t('loading')}</h2>
 
         <div class="game-area" id="game-area"></div>
         
@@ -121,11 +122,11 @@ export function createGameModule(gameConfig) {
           <div class="gba-window" style="text-align: center; width: 100%;">
             <h2>Resultados</h2>
             <div style="font-size: 24px; margin: 16px 0;">
-              <span class="score-correct">V: ${scoreCorrect}</span> | 
-              <span class="score-incorrect">X: ${scoreIncorrect}</span>
+              <span class="score-correct">${t('score')}: ${scoreCorrect}</span> | 
+              <span class="score-incorrect">${t('errors')}: ${scoreIncorrect}</span>
             </div>
             <button class="btn" id="replay-btn" style="width: 100%; margin-bottom: 8px;">Jugar de Nuevo</button>
-            <button class="btn btn-secondary" id="menu-btn" style="width: 100%;">Volver al Menú</button>
+            <button class="btn btn-secondary" id="menu-btn" style="width: 100%;">${t('back')}</button>
           </div>
         `;
                 questionText.textContent = "¡Partida Finalizada!";
@@ -135,7 +136,7 @@ export function createGameModule(gameConfig) {
                     currentRound = 0; scoreCorrect = 0; scoreIncorrect = 0;
                     valCorrect.textContent = '0'; valIncorrect.textContent = '0';
                     progDots.forEach(d => { d.className = 'progress-dot'; });
-                    questionText.textContent = "Cargando...";
+                    questionText.textContent = t('loading');
                     gameArea.innerHTML = "";
                     roundData = await gameConfig.generateRounds(TOTAL_ROUNDS);
                     renderRound();

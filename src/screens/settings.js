@@ -1,6 +1,7 @@
 import { getSettings, saveSettings, clearAllData } from '../data/storage.js';
 import { navigate } from '../router.js';
 import { playSound } from '../audio.js';
+import { t, setLanguage, getLanguage } from '../i18n.js';
 
 export default {
     async mount() {
@@ -12,34 +13,42 @@ export default {
 
         container.innerHTML = `
       <div class="gba-window">
-        <h2 style="text-align: center; border-bottom: 2px solid var(--gba-border-inner); padding-bottom: 8px; margin-bottom: 16px;">Configuración</h2>
+        <h2 style="text-align: center; border-bottom: 2px solid var(--gba-border-inner); padding-bottom: 8px; margin-bottom: 16px;">${t('settings')}</h2>
         
         <div style="display: flex; flex-direction: column; gap: 24px; padding: 8px;">
           
+          <!-- Language Control -->
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label style="font-family: var(--font-pixel); font-size: 12px;">${t('language')}</label>
+            <select id="language-select" class="btn btn-secondary" style="padding: 4px; font-size: 10px;">
+                <option value="es" ${getLanguage() === 'es' ? 'selected' : ''}>Español</option>
+                <option value="en" ${getLanguage() === 'en' ? 'selected' : ''}>English</option>
+            </select>
+          </div>
+
           <!-- Volume Control -->
           <div>
-            <label style="display: block; font-family: var(--font-pixel); font-size: 12px; margin-bottom: 8px;">Volumen Global</label>
+            <label style="display: block; font-family: var(--font-pixel); font-size: 12px; margin-bottom: 8px;">${t('volume')}</label>
             <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="${settings.volume}" style="width: 100%;">
           </div>
 
           <!-- Theme Toggle -->
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <label style="font-family: var(--font-pixel); font-size: 12px;">Modo Oscuro</label>
+            <label style="font-family: var(--font-pixel); font-size: 12px;">${t('darkMode')}</label>
             <input type="checkbox" id="theme-toggle" ${settings.darkMode ? 'checked' : ''} style="transform: scale(1.5);">
           </div>
           
           <!-- Tutorial Replay -->
-          <button id="replay-tutorial-btn" class="btn btn-secondary" style="width: 100%; font-size: 12px;">Ver Tutorial de Oak</button>
+          <button id="replay-tutorial-btn" class="btn btn-secondary" style="width: 100%; font-size: 12px;">${t('tutorial')}</button>
 
           <!-- Clear Data -->
           <div style="margin-top: 16px; border-top: 2px solid var(--gba-border-inner); padding-top: 16px;">
-            <button id="clear-data-btn" class="btn btn-danger" style="width: 100%;">Borrar Datos Guardados</button>
-            <p id="confirm-msg" class="hidden" style="color: var(--color-incorrect); font-size: 12px; text-align: center; margin-top: 8px;">¿Estás seguro? Presiona de nuevo para confirmar.</p>
+            <button id="clear-data-btn" class="btn btn-danger" style="width: 100%;">${t('resetData')}</button>
+            <p id="confirm-msg" class="hidden" style="color: var(--color-incorrect); font-size: 12px; text-align: center; margin-top: 8px;">${t('resetConfirm')}</p>
           </div>
           
-          <button id="back-btn" class="btn btn-secondary" style="width: 100%; margin-top: 24px; ">Volver</button>
+          <button id="back-btn" class="btn btn-secondary" style="width: 100%; margin-top: 24px; ">${t('back')}</button>
         </div>
-
 
       </div>
     `;
@@ -63,6 +72,14 @@ export default {
                 document.documentElement.removeAttribute('data-theme');
             }
             playSound('hover');
+        });
+
+        const langSelect = container.querySelector('#language-select');
+        langSelect.addEventListener('change', (e) => {
+            playSound('hover');
+            setLanguage(e.target.value);
+            // Re-render settings screen to show new language immediately
+            navigate('settings');
         });
 
         const replayBtn = container.querySelector('#replay-tutorial-btn');

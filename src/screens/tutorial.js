@@ -1,20 +1,22 @@
 import { navigate } from '../router.js';
 import { getSettings, saveSettings } from '../data/storage.js';
 import { playSound } from '../audio.js';
+import { t } from '../i18n.js';
 
-const dialogs = [
-    "¡Hola! ¡Perdona por hacerte esperar!",
-    "¡Bienvenido al mundo de los POKÉMON! Mi nombre es OAK.",
-    "La gente suele llamarme el PROFESOR POKÉMON.",
-    "Esta aplicación, PokéTrivia, te ayudará a conocer y memorizar datos sobre los POKÉMON.",
-    "Podrás escuchar sus gritos, ver sus tipos, y adivinar sus siluetas.",
-    "¡Hay 6 minijuegos distintos además de una Pokédex completa!",
-    "¡Tu propia leyenda POKÉMON está a punto de comenzar!",
-    "¡Adelante!"
+const getDialogs = () => [
+    t('tutorialLine1'),
+    t('tutorialLine2'),
+    t('tutorialLine3'),
+    t('tutorialLine4'),
+    t('tutorialLine5'),
+    t('tutorialLine6'),
+    t('tutorialLine7'),
+    t('tutorialLine8')
 ];
 
 export default {
     async mount() {
+        const dialogs = getDialogs();
         const container = document.createElement('div');
         container.className = 'game-container animate-fade-in';
         container.style.justifyContent = 'space-between';
@@ -34,7 +36,7 @@ export default {
         <span class="animate-bob" style="position: absolute; right: 16px; bottom: 16px; color: var(--color-emerald-base);">▼</span>
       </div>
       
-      <button id="skip-btn" class="btn" style="position: absolute; top: 16px; right: 16px; font-size: 10px; padding: 8px 16px;">Omitir</button>
+      <button id="skip-btn" class="btn" style="position: absolute; top: 16px; right: 16px; font-size: 10px; padding: 8px 16px;">${t('skip')}</button>
     `;
 
         const dialogBox = container.querySelector('.dialog-box');
