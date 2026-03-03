@@ -1,0 +1,16 @@
+{
+  "name": "poketrivia",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "idb": "^8.0.0",
+    "vite": "^6.4.1",
+    "vite-plugin-pwa": "^1.2.0"
+  }
+}

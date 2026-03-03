@@ -1,0 +1,37 @@
+:root {
+  /* Emerald Palette */
+  --color-emerald-light: #52e396;
+  --color-emerald-base: #24b868;
+  --color-emerald-dark: #008f51;
+
+  /* Typography */
+  --color-text-dark: #2d3748;
+  --color-text-light: #f7fafc;
+
+  /* Backgrounds */
+  --color-bg-light: #edf2f7;
+  --color-bg-modal: #ffffff;
+  
+  /* GBA Window Borders */
+  --gba-border-outer: #384152;
+  --gba-border-inner: #b4c6d1;
+  --gba-border-highlight: #e2e8f0;
+
+  /* States */
+  --color-correct: #4ade80;
+  --color-incorrect: #f87171;
+  --color-warning: #fbbf24;
+
+  /* Fonts */
+  --font-pixel: 'Press Start 2P', cursive;
+  --font-gba: 'VT323', monospace;
+}
+
+[data-theme='dark'] {
+  --color-text-dark: #e2e8f0;
+  --color-bg-light: #1a202c;
+  --color-bg-modal: #2d3748;
+  --gba-border-outer: #cbd5e1;
+  --gba-border-inner: #475569;
+  --gba-border-highlight: #1e293b;
+}

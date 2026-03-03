@@ -1,0 +1,161 @@
+/* GBA Window Container (Used for Modals, Menus, Dialogs) */
+.gba-window {
+    background-color: var(--color-bg-modal);
+    border: 4px solid var(--gba-border-outer);
+    border-radius: 8px;
+    padding: 4px;
+    position: relative;
+    box-shadow:
+        inset 4px 4px 0 0 var(--gba-border-highlight),
+        inset -4px -4px 0 0 var(--gba-border-inner);
+}
+
+.gba-window-content {
+    border: 4px solid var(--gba-border-inner);
+    border-radius: 4px;
+    padding: 16px;
+    background-color: var(--color-bg-light);
+}
+
+/* Pokemon Emerald Dialog Box */
+.dialog-box {
+    background-color: var(--color-bg-modal);
+    border: 4px solid var(--gba-border-outer);
+    border-radius: 8px;
+    padding: 16px;
+    font-family: var(--font-pixel);
+    font-size: 14px;
+    line-height: 1.8;
+    box-shadow:
+        inset 0 0 0 4px var(--gba-border-inner);
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: var(--color-emerald-base);
+    color: #fff;
+    border: 4px solid var(--gba-border-outer);
+    border-radius: 8px;
+    font-size: 14px;
+    text-transform: uppercase;
+    transition: transform 0.1s, background-color 0.2s;
+    text-align: center;
+    box-shadow: inset -4px -4px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+    background-color: var(--color-emerald-light);
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(2px);
+    box-shadow: inset 4px 4px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary {
+    background-color: #94a3b8;
+}
+
+.btn-secondary:hover {
+    background-color: #cbd5e1;
+}
+
+.btn-danger {
+    background-color: var(--color-incorrect);
+}
+
+.btn-danger:hover {
+    background-color: #fca5a5;
+}
+
+/* Grid Layout for Pokédex */
+.pokedex-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 16px;
+    padding: 16px;
+    overflow-y: auto;
+    max-height: calc(100vh - 80px);
+    /* Leave room for header */
+}
+
+/* Pokemon Card */
+.pokemon-card {
+    background-color: var(--color-bg-modal);
+    border: 4px solid var(--gba-border-inner);
+    border-radius: 8px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.pokemon-card:hover {
+    transform: scale(1.05);
+    border-color: var(--color-emerald-base);
+}
+
+.pokemon-card img {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 8px;
+}
+
+.pokemon-card .name {
+    font-family: var(--font-pixel);
+    font-size: 10px;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+/* Animations */
+@keyframes bob {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+.sprite-anim-idle {
+    animation: bob 1s infinite ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.3s forwards;
+}
+
+.animate-slide-up {
+    animation: slideUp 0.3s forwards;
+}
