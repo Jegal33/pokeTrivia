@@ -17,7 +17,7 @@ const config = {
           <div class="options-grid" style="grid-template-columns: 1fr 1fr;">
             ${options.map((p, idx) => `
               <button class="option-btn" data-correct="${idx === correctIdx}" style="padding: 8px; display: flex; justify-content: center; align-items: center; height: 120px;">
-                <img src="${p.sprite}" alt="${p.name}" style="transform: scale(1.5);">
+                <img src="${p.sprite}" alt="${p.name}" style="transform: scale(1.3); max-width: 100%; max-height: 100%; object-fit: contain;">
               </button>
             `).join('')}
           </div>

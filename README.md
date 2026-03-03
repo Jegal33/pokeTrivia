@@ -1,6 +1,6 @@
 # PokéTrivia
 
-## Qué es 
+## Qué es? 
 
 Una aplicación web para aprender los nombres de los pokemon.
 
@@ -16,7 +16,7 @@ Una aplicación web para aprender los nombres de los pokemon.
 ## Estructura del proyecto
 
 ```
-pokelearn/
+pokeTrivia/
 ├── index.html                  # Root HTML
 ├── vite.config.js              # Vite + PWA config
 ├── public/icons/               # PWA icons

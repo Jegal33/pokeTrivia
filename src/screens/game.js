@@ -27,7 +27,7 @@ export function createGameModule(gameConfig) {
           </div>
         </div>
         
-        <h2 id="question-text" style="text-align: center; font-size: 16px;">${t('loading')}</h2>
+        <h2 id="question-text" style="text-align: center; font-size: 16px; margin-top: 24px;">${t('loading')}</h2>
 
         <div class="game-area" id="game-area"></div>
         
