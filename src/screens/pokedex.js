@@ -13,6 +13,9 @@ export default {
         container.className = 'game-container animate-fade-in';
         container.style.padding = '0'; // Maximize space
 
+        let currentPage = 1;
+        const ITEMS_PER_PAGE = 100;
+
         container.innerHTML = `
       <div style="padding: 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 4px solid var(--gba-border-outer); background: var(--color-emerald-dark); color: white;">
         <h2 style="margin: 0;">Pokédex</h2>
@@ -23,12 +26,18 @@ export default {
         <!-- Items go here -->
       </div>
       
-      <div id="sentinel" style="height: 20px; width: 100%;"></div>
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; border-top: 4px solid var(--gba-border-outer); background: var(--color-bg-modal);">
+          <button class="btn btn-secondary" id="prev-page" style="padding: 8px 16px; font-size: 12px;">◄ Ant.</button>
+          <span id="page-indicator" style="font-family: var(--font-pixel); font-size: 10px;">Página 1</span>
+          <button class="btn btn-secondary" id="next-page" style="padding: 8px 16px; font-size: 12px;">Sig. ►</button>
+      </div>
     `;
 
         const grid = container.querySelector('#pokedex-grid');
-        const sentinel = container.querySelector('#sentinel');
         const exitBtn = container.querySelector('#exit-pokedex');
+        const prevBtn = container.querySelector('#prev-page');
+        const nextBtn = container.querySelector('#next-page');
+        const pageIndicator = container.querySelector('#page-indicator');
 
         exitBtn.addEventListener('click', () => {
             playSound('hover');
@@ -39,8 +48,8 @@ export default {
             fullList = await getAllPokemon();
             // Sort by ID is usually default, but let's be safe
             fullList.sort((a, b) => a.id - b.id);
-            currentIndex = 0;
-            loadMore();
+            currentPage = 1;
+            renderPage();
         } catch (e) {
             grid.innerHTML = '<p>Error loading Pokedex</p>';
         }
@@ -60,30 +69,46 @@ export default {
             return card;
         }
 
-        function loadMore() {
-            const fragment = document.createDocumentFragment();
-            const endIndex = Math.min(currentIndex + ITEMS_PER_PAGE, fullList.length);
+        function renderPage() {
+            grid.innerHTML = '';
+            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+            const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, fullList.length);
+            const totalPages = Math.ceil(fullList.length / ITEMS_PER_PAGE);
 
-            for (let i = currentIndex; i < endIndex; i++) {
+            const fragment = document.createDocumentFragment();
+            for (let i = startIndex; i < endIndex; i++) {
                 fragment.appendChild(renderCard(fullList[i]));
             }
-
             grid.appendChild(fragment);
-            currentIndex = endIndex;
 
-            if (currentIndex >= fullList.length) {
-                observer.disconnect();
-            }
+            pageIndicator.textContent = `Página ${currentPage} / ${totalPages}`;
+
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.style.opacity = currentPage === 1 ? '0.5' : '1';
+
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.style.opacity = currentPage === totalPages ? '0.5' : '1';
+
+            // Scroll to top of grid
+            grid.scrollTop = 0;
         }
 
-        // Infinite Scroll Observer
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
-                loadMore();
+        prevBtn.addEventListener('click', () => {
+            if (currentPage > 1) {
+                playSound('hover');
+                currentPage--;
+                renderPage();
             }
-        }, { rootMargin: '100px' });
+        });
 
-        observer.observe(sentinel);
+        nextBtn.addEventListener('click', () => {
+            const totalPages = Math.ceil(fullList.length / ITEMS_PER_PAGE);
+            if (currentPage < totalPages) {
+                playSound('hover');
+                currentPage++;
+                renderPage();
+            }
+        });
 
         return container;
     },
