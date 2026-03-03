@@ -51,7 +51,16 @@ const config = {
               </button>
             `).join('')}
           </div>
-        `
+        `,
+        onReveal: (gameArea) => {
+          const img = gameArea.querySelector('.pokemon-display img');
+          if (img) {
+            img.src = correctPoke.sprite;
+            img.alt = correctPoke.name;
+            img.style.transition = 'transform 0.4s ease-out';
+            img.style.transform = 'scale(1.3)';
+          }
+        }
       });
     }
     return rounds;
