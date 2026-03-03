@@ -109,9 +109,17 @@
 
 .pokemon-card .name {
     font-family: var(--font-pixel);
-    font-size: 10px;
+    font-size: 9px;
     text-align: center;
     text-transform: capitalize;
+    width: 100%;
+    word-break: break-word;
+    line-height: 1.4;
+    min-height: 26px;
+    /* Space for exactly 2 lines */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Animations */
