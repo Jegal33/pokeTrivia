@@ -5,6 +5,7 @@ import { showPokemonDetail } from './pokemon-detail.js';
 import { getSettings, saveSettings } from '../data/storage.js';
 
 let fullList = [];
+let filteredList = [];
 let currentIndex = 0;
 const ITEMS_PER_PAGE = 50;
 
@@ -25,6 +26,42 @@ export default {
             <button class="btn btn-secondary" id="exit-pokedex" style="padding: 4px 8px; font-size: 10px;">Volver</button>
         </div>
       </div>
+
+      <div style="padding: 8px 16px; display: flex; gap: 8px; background: var(--color-bg-modal); border-bottom: 4px solid var(--gba-border-outer);">
+        <select id="filter-type" class="btn btn-secondary" style="flex: 1; padding: 4px; font-size: 10px;">
+          <option value="">Todos los tipos</option>
+          <option value="normal">Normal</option>
+          <option value="fighting">Lucha</option>
+          <option value="flying">Volador</option>
+          <option value="poison">Veneno</option>
+          <option value="ground">Tierra</option>
+          <option value="rock">Roca</option>
+          <option value="bug">Bicho</option>
+          <option value="ghost">Fantasma</option>
+          <option value="steel">Acero</option>
+          <option value="fire">Fuego</option>
+          <option value="water">Agua</option>
+          <option value="grass">Planta</option>
+          <option value="electric">Eléctrico</option>
+          <option value="psychic">Psíquico</option>
+          <option value="ice">Hielo</option>
+          <option value="dragon">Dragón</option>
+          <option value="dark">Siniestro</option>
+          <option value="fairy">Hada</option>
+        </select>
+        <select id="filter-gen" class="btn btn-secondary" style="flex: 1; padding: 4px; font-size: 10px;">
+            <option value="">Todas las Gens.</option>
+            <option value="1">Generación 1</option>
+            <option value="2">Generación 2</option>
+            <option value="3">Generación 3</option>
+            <option value="4">Generación 4</option>
+            <option value="5">Generación 5</option>
+            <option value="6">Generación 6</option>
+            <option value="7">Generación 7</option>
+            <option value="8">Generación 8</option>
+            <option value="9">Generación 9</option>
+        </select>
+      </div>
       
       <div id="pokedex-grid" class="pokedex-grid" style="flex-grow: 1;">
         <!-- Items go here -->
@@ -43,6 +80,34 @@ export default {
         const prevBtn = container.querySelector('#prev-page');
         const nextBtn = container.querySelector('#next-page');
         const pageIndicator = container.querySelector('#page-indicator');
+        const filterType = container.querySelector('#filter-type');
+        const filterGen = container.querySelector('#filter-gen');
+
+        function applyFilters() {
+            const type = filterType.value;
+            const gen = filterGen.value;
+            filteredList = fullList.filter(p => {
+                let matchType = true;
+                if (type) matchType = p.types.includes(type);
+
+                let matchGen = true;
+                if (gen) matchGen = p.generationId === parseInt(gen);
+
+                return matchType && matchGen;
+            });
+            currentPage = 1;
+            renderPage();
+        }
+
+        filterType.addEventListener('change', () => {
+            playSound('hover');
+            applyFilters();
+        });
+
+        filterGen.addEventListener('change', () => {
+            playSound('hover');
+            applyFilters();
+        });
 
         // Logic for configuring mute auto-cry
         const settings = getSettings();
@@ -69,6 +134,7 @@ export default {
             fullList = await getAllPokemon();
             // Sort by ID is usually default, but let's be safe
             fullList.sort((a, b) => a.id - b.id);
+            filteredList = [...fullList];
             currentPage = 1;
             renderPage();
         } catch (e) {
@@ -93,12 +159,12 @@ export default {
         function renderPage() {
             grid.innerHTML = '';
             const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-            const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, fullList.length);
-            const totalPages = Math.ceil(fullList.length / ITEMS_PER_PAGE);
+            const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, filteredList.length);
+            const totalPages = Math.ceil(filteredList.length / ITEMS_PER_PAGE) || 1;
 
             const fragment = document.createDocumentFragment();
             for (let i = startIndex; i < endIndex; i++) {
-                fragment.appendChild(renderCard(fullList[i]));
+                fragment.appendChild(renderCard(filteredList[i]));
             }
             grid.appendChild(fragment);
 
@@ -123,7 +189,7 @@ export default {
         });
 
         nextBtn.addEventListener('click', () => {
-            const totalPages = Math.ceil(fullList.length / ITEMS_PER_PAGE);
+            const totalPages = Math.ceil(filteredList.length / ITEMS_PER_PAGE) || 1;
             if (currentPage < totalPages) {
                 playSound('hover');
                 currentPage++;
@@ -136,5 +202,6 @@ export default {
 
     unmount() {
         fullList = [];
+        filteredList = [];
     }
 };

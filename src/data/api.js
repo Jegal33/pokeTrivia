@@ -1,4 +1,4 @@
-import { savePokemonList, countPokemon, getAllPokemon } from './db.js';
+import { savePokemonList, countPokemon, getAllPokemon, getPokemonById, clearPokedex } from './db.js';
 
 const TOTAL_POKEMON = 1025; // Up to Gen 9
 const GRAPHQL_URL = 'https://beta.pokeapi.co/graphql/v1beta';
@@ -28,8 +28,13 @@ export async function loadData(onProgress) {
   try {
     const cachedCount = await countPokemon();
     if (cachedCount >= TOTAL_POKEMON) {
-      onProgress(100, 'Datos cargados desde la caché.');
-      return;
+      const sample = await getPokemonById(1);
+      if (sample && sample.generationId !== undefined) {
+        onProgress(100, 'Datos cargados desde la caché.');
+        return;
+      } else {
+        await clearPokedex();
+      }
     }
 
     onProgress(10, 'Conectando con la Pokédex Nacional...');
@@ -59,6 +64,7 @@ export async function loadData(onProgress) {
         id: p.id,
         name: p.name,
         evoChainId: spec.evolution_chain_id || null,
+        generationId: spec.generation_id || 1,
         description: desc,
         types: p.pokemon_v2_pokemontypes.map(pt => pt.pokemon_v2_type.name),
         sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.id}.png`,
