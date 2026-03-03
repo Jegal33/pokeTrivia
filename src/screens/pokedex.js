@@ -2,6 +2,7 @@ import { navigate } from '../router.js';
 import { getAllPokemon } from '../data/api.js';
 import { playSound } from '../audio.js';
 import { showPokemonDetail } from './pokemon-detail.js';
+import { getSettings, saveSettings } from '../data/storage.js';
 
 let fullList = [];
 let currentIndex = 0;
@@ -18,8 +19,11 @@ export default {
 
         container.innerHTML = `
       <div style="padding: 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 4px solid var(--gba-border-outer); background: var(--color-emerald-dark); color: white;">
-        <h2 style="margin: 0;">Pokédex</h2>
-        <button class="btn btn-secondary" id="exit-pokedex" style="padding: 4px 8px; font-size: 10px;">Volver</button>
+        <h2 style="margin: 0; font-size: 1.2rem;">Pokédex</h2>
+        <div style="display: flex; gap: 8px;">
+            <button class="btn btn-secondary" id="toggle-mute" style="padding: 4px 8px; font-size: 10px;">🔊</button>
+            <button class="btn btn-secondary" id="exit-pokedex" style="padding: 4px 8px; font-size: 10px;">Volver</button>
+        </div>
       </div>
       
       <div id="pokedex-grid" class="pokedex-grid" style="flex-grow: 1;">
@@ -35,9 +39,26 @@ export default {
 
         const grid = container.querySelector('#pokedex-grid');
         const exitBtn = container.querySelector('#exit-pokedex');
+        const muteBtn = container.querySelector('#toggle-mute');
         const prevBtn = container.querySelector('#prev-page');
         const nextBtn = container.querySelector('#next-page');
         const pageIndicator = container.querySelector('#page-indicator');
+
+        // Logic for configuring mute auto-cry
+        const settings = getSettings();
+
+        const updateMuteBtnState = () => {
+            muteBtn.textContent = settings.pokedexMuteAutoCry ? '🔇' : '🔊';
+            muteBtn.style.opacity = settings.pokedexMuteAutoCry ? '0.6' : '1';
+        };
+        updateMuteBtnState();
+
+        muteBtn.addEventListener('click', () => {
+            playSound('hover');
+            settings.pokedexMuteAutoCry = !settings.pokedexMuteAutoCry;
+            saveSettings(settings);
+            updateMuteBtnState();
+        });
 
         exitBtn.addEventListener('click', () => {
             playSound('hover');

@@ -1,5 +1,5 @@
 import { playSound, playCry } from '../audio.js';
-import { getStats } from '../data/storage.js';
+import { getStats, getSettings } from '../data/storage.js';
 
 export function showPokemonDetail(pokemon, fullList, parentContainer) {
     const modalOverlay = document.createElement('div');
@@ -104,6 +104,11 @@ export function showPokemonDetail(pokemon, fullList, parentContainer) {
 
     parentContainer.appendChild(modalOverlay);
 
-    // Play cry on open
-    setTimeout(() => playCry(pokemon.id), 200);
+    // Play cry on open if not muted
+    setTimeout(() => {
+        const settings = getSettings();
+        if (!settings.pokedexMuteAutoCry) {
+            playCry(pokemon.id);
+        }
+    }, 200);
 }

@@ -4,7 +4,8 @@ const STATS_KEY = 'pokelearn_stats';
 const defaultSettings = {
     volume: 0.5,
     darkMode: false,
-    tutorialSeen: false
+    tutorialSeen: false,
+    pokedexMuteAutoCry: false
 };
 
 export function getSettings() {
