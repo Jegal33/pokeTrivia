@@ -14,7 +14,7 @@ export default {
       <div class="gba-window">
         <h2 style="text-align: center; border-bottom: 2px solid var(--gba-border-inner); padding-bottom: 8px; margin-bottom: 16px;">Configuración</h2>
         
-        <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div style="display: flex; flex-direction: column; gap: 24px; padding: 8px;">
           
           <!-- Volume Control -->
           <div>
@@ -36,10 +36,11 @@ export default {
             <button id="clear-data-btn" class="btn btn-danger" style="width: 100%;">Borrar Datos Guardados</button>
             <p id="confirm-msg" class="hidden" style="color: var(--color-incorrect); font-size: 12px; text-align: center; margin-top: 8px;">¿Estás seguro? Presiona de nuevo para confirmar.</p>
           </div>
-
+          
+          <button id="back-btn" class="btn btn-secondary" style="width: 100%; margin-top: 24px; ">Volver</button>
         </div>
 
-        <button id="back-btn" class="btn btn-secondary" style="width: 100%; margin-top: 24px;">Volver</button>
+
       </div>
     `;
 

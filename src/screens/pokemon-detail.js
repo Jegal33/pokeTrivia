@@ -39,7 +39,7 @@ export function showPokemonDetail(pokemon, fullList, parentContainer) {
     }
 
     modalOverlay.innerHTML = `
-      <div class="gba-window" style="width: 100%; max-width: 400px; max-height: 90vh; overflow-y: auto;">
+      <div class="gba-window" style="width: 100%; max-width: 400px; max-height: 90vh; overflow-y: auto; padding: 8px;">
         <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
             <div style="font-family: var(--font-pixel); font-size: 12px;">#${pokemon.id.toString().padStart(3, '0')}</div>
             <button class="btn btn-secondary" id="close-modal" style="padding: 4px 8px; font-size: 10px;">X</button>
