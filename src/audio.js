@@ -8,8 +8,11 @@ export function playCry(pokemonId) {
     const settings = getSettings();
     if (settings.volume <= 0) return;
 
+    // Resetting src helps reset the element state
     cryAudio.src = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${pokemonId}.ogg`;
-    cryAudio.volume = settings.volume;
+    // Reduce the cry volume by half relative to the global volume setting
+    cryAudio.volume = Math.max(0, Math.min(1, parseFloat(settings.volume) * 0.5));
+
     cryAudio.play().catch(e => console.warn('Audio play failed:', e));
 }
 
