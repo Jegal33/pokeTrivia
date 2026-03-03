@@ -10,7 +10,7 @@ export default {
     container.innerHTML = `
       <div style="text-align: center; margin-bottom: 32px;">
         <h1 style="color: var(--color-emerald-dark); font-size: 2rem; margin-bottom: 8px;">PokéTrivia</h1>
-        <p style="font-size: 14px; opacity: 0.8;">Atrápalos con el conocimiento</p>
+        <p style="font-size: 14px; opacity: 0.8;">Conócelos a todos</p>
       </div>
 
       <div class="gba-window" style="margin-bottom: 24px;">

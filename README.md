@@ -36,7 +36,6 @@ pokelearn/
     │   ├── game5.js            # Evolution Chain
     │   └── game6.js            # Pokémon Cry
     ├── screens/
-    │   ├── loading.js          # Data download progress
     │   ├── menu.js             # Main menu
     │   ├── tutorial.js         # Prof. Oak tutorial
     │   ├── settings.js         # Settings with clear data
@@ -54,7 +53,7 @@ pokelearn/
 
 ```bash
 cd pokeTrivia
-npm vite
+npm install vite
 npm run dev
 # Open http://localhost:5173
 ```
