@@ -5,10 +5,14 @@ import { t } from '../i18n.js';
 const config = {
   async generateRounds(count) {
     const rounds = [];
+    const correctAnswers = await getRandomPokemon(count);
+
     for (let i = 0; i < count; i++) {
-      const options = await getRandomPokemon(4);
+      const correctPoke = correctAnswers[i];
+      const decoyOptions = await getRandomPokemon(3, p => p.id !== correctPoke.id);
+      const options = [...decoyOptions];
       const correctIdx = Math.floor(Math.random() * 4);
-      const correctPoke = options[correctIdx];
+      options.splice(correctIdx, 0, correctPoke);
 
       rounds.push({
         question: t('game6Question'),

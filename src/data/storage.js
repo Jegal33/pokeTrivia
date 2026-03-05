@@ -5,7 +5,9 @@ const defaultSettings = {
     volume: 0.5,
     darkMode: false,
     tutorialSeen: false,
-    pokedexMuteAutoCry: false
+    pokedexMuteAutoCry: false,
+    game1Gen: 0,
+    game2Gen: 0
 };
 
 export function getSettings() {

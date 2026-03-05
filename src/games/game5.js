@@ -15,11 +15,12 @@ const config = {
 
     // Chains with at least 2 members
     const validChainsId = Object.keys(chains).filter(k => chains[k].length > 1);
+    validChainsId.sort(() => 0.5 - Math.random()); // Shuffle valid chains
 
     const rounds = [];
     for (let i = 0; i < count; i++) {
-      // Pick a random valid chain
-      const randChainId = validChainsId[Math.floor(Math.random() * validChainsId.length)];
+      // Pick a chain from the shuffled list
+      const randChainId = validChainsId[i % validChainsId.length];
       const chainMembers = chains[randChainId];
 
       // Sort by ID to guess base -> next evolution

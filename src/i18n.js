@@ -64,6 +64,8 @@ const translations = {
         game5Question: '¿Cuál es la evolución de este Pokémon?',
         game6Question: '¿De qué Pokémon es este grito?',
         typeNone: 'Ninguno',
+        selectGen: 'Elegir Generación',
+        gameGen: 'Generación:',
 
         // Tutorial
         tutorialLine1: '¡Hola! ¡Perdona por hacerte esperar!',
@@ -152,6 +154,8 @@ const translations = {
         game5Question: 'What is the evolution of this Pokémon?',
         game6Question: 'Whose cry is this?',
         typeNone: 'None',
+        selectGen: 'Select Generation',
+        gameGen: 'Generation:',
 
         // Tutorial
         tutorialLine1: 'Hello there! Sorry to keep you waiting!',

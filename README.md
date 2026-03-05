@@ -50,7 +50,7 @@ pokeTrivia/
         └── games.css           # Game-specific layouts
 ```
 
-## How to Run
+## Cómo ejecutar
 
 ```bash
 cd pokeTrivia
